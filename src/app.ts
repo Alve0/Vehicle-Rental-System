@@ -4,6 +4,7 @@ import initDB from "./config/db";
 import { userRoutes } from "./modules/users/users.routes";
 import { authRoutes } from "./modules/authentication/auth.routes";
 import { useVehiclesRouter } from "./modules/vehicles/vehicles.routes";
+import { bookingRouter } from "./modules/bookings/bookings.routes";
 
 const app = express();
 
@@ -19,6 +20,8 @@ app.use("/api/v1/auth/", authRoutes);
 app.use("/api/v1/users", userRoutes);
 
 app.use("/api/v1/vehicles", useVehiclesRouter);
+
+app.use("/api/v1/bookings", bookingRouter);
 
 app.use((req, res) => {
   res.status(404).json({
