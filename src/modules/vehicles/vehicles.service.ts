@@ -40,7 +40,22 @@ const GetAllVehicles = async () => {
   }
 };
 
+const GetVehicle = async (id: number) => {
+  try {
+    const result = await pool.query(`SELECT * FROM vehicles WHERE id = $1`, [
+      id,
+    ]);
+    if (result.rows.length === 0) {
+      throw "Not avilable";
+    }
+    return result.rows;
+  } catch (err) {
+    throw err;
+  }
+};
+
 export const vehiclesService = {
   AddVehicale,
   GetAllVehicles,
+  GetVehicle,
 };
