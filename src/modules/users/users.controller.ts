@@ -34,6 +34,12 @@ const updateUser = async (req: Request, res: Response) => {
     }
     if (user?.role === "admin") {
       const result = await userServices.AdminUpdateUser(id, req.body);
+      return res.status(200).json({
+        success: true,
+        message: "updated user successfully",
+        details: "users have been updated",
+        data: result,
+      });
     }
 
     const result = await userServices.CustomerUpdateUser(id, req.body);
@@ -42,6 +48,7 @@ const updateUser = async (req: Request, res: Response) => {
       success: true,
       message: "updated user successfully",
       details: "users have been updated",
+      data: result,
     });
   } catch (err: any) {
     res.status(400).json({
