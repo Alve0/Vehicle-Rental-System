@@ -3,9 +3,9 @@ import { pool } from "../../config/db";
 import { hashPassword, comparePassword } from "../../utils/bycript";
 import { jwtHelpers } from "../../utils/jwt";
 
-type CreateUserPayload = {
-  name: string;
-  email: string;
+export type CreateUserPayload = {
+  name?: string;
+  email?: string;
   password: string;
   phone?: string;
   role?: string;
@@ -29,7 +29,6 @@ const createUser = async (payload: CreateUserPayload) => {
   }
 
   const hashed = await hashPassword(password);
-  console.log(hashed);
 
   const result = await pool.query(
     `INSERT INTO users (name, email, password, role, phone)

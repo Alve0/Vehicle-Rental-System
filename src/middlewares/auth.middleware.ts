@@ -9,12 +9,14 @@ export const auth = (roles?: string[]) => {
       if (!header || !header.startsWith("Bearer ")) {
         return res.status(401).json({ success: false, message: "No token" });
       }
-
       const token = header.split(" ")[1];
       const decoded: any = jwtHelpers.verify(token as string);
 
-      // attach to req (use as any or extend types)
-      (req as any).user = decoded;
+      (req as any).user = {
+        userId: decoded.id,
+        email: decoded.email,
+        role: decoded.role,
+      };
 
       if (roles && roles.length > 0 && !roles.includes(decoded.role)) {
         return res.status(403).json({ success: false, message: "Forbidden" });
