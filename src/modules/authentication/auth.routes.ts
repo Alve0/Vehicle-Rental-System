@@ -1,7 +1,10 @@
-import express, { Request, Response } from "express";
-import { authControler } from "./auth.controller";
+// src/modules/authentication/auth.routes.ts
+import express from "express";
+import { authController } from "./auth.controller";
+
 const router = express.Router();
 
-router.post("/signup", authControler.createUser);
+router.post("/signup", authController.signup);
+router.post("/signin", authController.signin);
 
-export const createUser = router;
+export const authRoutes = router;
