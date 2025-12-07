@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import { userServices } from "./users.service";
-import { auth } from "../../middlewares/auth.middleware";
 
 const getUser = async (req: Request, res: Response) => {
   try {
@@ -59,7 +58,26 @@ const updateUser = async (req: Request, res: Response) => {
   }
 };
 
+const deleteUser = async (req: Request, res: Response) => {
+  try {
+    const result = await userServices.DeleteUser(Number(req.params.userId));
+
+    return res.status(200).json({
+      success: true,
+      data: result,
+      user: null,
+    });
+  } catch (err: any) {
+    return res.status(404).json({
+      success: false,
+      errMessage: err.message,
+      errFrom: "Delete User Failed",
+    });
+  }
+};
+
 export const userController = {
   getUser,
   updateUser,
+  deleteUser,
 };
